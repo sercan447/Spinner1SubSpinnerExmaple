@@ -1,9 +1,15 @@
 package sercandevops.com.spinner1;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
@@ -27,6 +33,57 @@ public class MainActivity extends AppCompatActivity {
         spinner = findViewById(R.id.spiner1);
         spinnercocuk = findViewById(R.id.spiner2);
 
+        WindowManager windowManager = (WindowManager) getSystemService(Context.WINDOW_SERVICE);
+        Display display = windowManager.getDefaultDisplay();
+
+        boolean tabletSize = getResources().getBoolean(R.bool.isTablet);
+
+        if(tabletSize)
+        {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+            //Toast.makeText(getApplicationContext(),"TABLET",Toast.LENGTH_SHORT).show();
+
+        }else
+        {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+           // Toast.makeText(getApplicationContext(),"TABLEYT DEGİL",Toast.LENGTH_SHORT).show();
+
+        }
+
+
+        /*int orit = display.getOrientation();
+
+        switch (orit)
+        {
+            case Configuration.ORIENTATION_PORTRAIT:
+                setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+                break;
+        }*/
+
+        /*if((getResources().getConfiguration().orientation & Configuration.SCREENLAYOUT_LAYOUTDIR_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE)
+        {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+            Toast.makeText(getApplicationContext(),"large",Toast.LENGTH_SHORT).show();
+        } if((getResources().getConfiguration().orientation & Configuration.SCREENLAYOUT_LAYOUTDIR_MASK) == Configuration.SCREENLAYOUT_SIZE_SMALL)
+        {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+            Toast.makeText(getApplicationContext(),"small",Toast.LENGTH_SHORT).show();
+        } if((getResources().getConfiguration().orientation & Configuration.SCREENLAYOUT_LAYOUTDIR_MASK) == Configuration.SCREENLAYOUT_SIZE_XLARGE)
+        {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+            Toast.makeText(getApplicationContext(),"xlarge",Toast.LENGTH_SHORT).show();
+        } if((getResources().getConfiguration().orientation & Configuration.SCREENLAYOUT_LAYOUTDIR_MASK) == Configuration.SCREENLAYOUT_SIZE_NORMAL)
+        {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+            Toast.makeText(getApplicationContext(),"normal",Toast.LENGTH_SHORT).show();
+        } if((getResources().getConfiguration().orientation & Configuration.SCREENLAYOUT_LAYOUTDIR_MASK) == Configuration.SCREENLAYOUT_SIZE_UNDEFINED)
+        {
+            Toast.makeText(getApplicationContext(),"undefined",Toast.LENGTH_SHORT).show();
+        }
+        */
+
+
+        Toast.makeText(getApplicationContext(),"a",Toast.LENGTH_SHORT).show();
 
         final ArrayList<Kisi> kisiArrayList = new ArrayList<>();
         kisiArrayList.add(new Kisi(33,"sena"));
@@ -66,6 +123,18 @@ public class MainActivity extends AppCompatActivity {
 
                 SpinnerCocukAdapter cocukAdapter = new SpinnerCocukAdapter(getApplicationContext(),yenichild);
                  spinnercocuk.setAdapter(cocukAdapter);
+
+                 spinnercocuk.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                     @Override
+                     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                      //   Toast.makeText(getApplicationContext(),((Cocuk)parent.getSelectedItem()).getCocukAdi(),Toast.LENGTH_LONG).show();
+                     }
+
+                     @Override
+                     public void onNothingSelected(AdapterView<?> parent) {
+
+                     }
+                 });
             }
 
             @Override
